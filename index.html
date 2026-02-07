@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>MODORA - Unduh apps and games mod apk</title>
+    <meta name="description" content="Unduh apps and game mod apk pro premium free for android.">
+    <meta name="keywords" content="mod apk, download aplikasi mod, game mod, premium unlocked, android mod">
+    <meta name="author" content="MODORA Inc.">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/nixy-pro/1@main/random/2026-02-07T14-36-29-180Z-IMG_20260207_212929_010.jpg" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CONFIG & VARIABLES --- */
+        :root {
+            --header-h: 70px;
+            --nav-h: 70px;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.98);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --secondary: #4f46e5;
+            --accent: #ef4444; 
+            --border: #e2e8f0;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            --radius: 16px;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body.dark-mode {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-glass: rgba(15, 23, 42, 0.98);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --border: #334155;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- RESET & LAYOUT --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            padding-top: calc(var(--header-h) + 15px);
+            padding-bottom: calc(var(--nav-h) + 30px);
+        }
+
+        /* --- CONTAINER UTAMA (RESPONSIVE) --- */
+        #mainView {
+            width: 100%;
+            padding: 0 24px;
+            margin: 0 auto;
+            max-width: 600px; /* Default Mobile */
+            transition: max-width 0.3s ease;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h);
+            padding: 0 24px; background: var(--bg-glass); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--border); z-index: 1000;
+        }
+        .logo { font-size: 24px; font-weight: 800; background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+        
+        .search-wrap { flex: 1; margin: 0 15px; position: relative; max-width: 400px; }
+        .search-input { width: 100%; padding: 10px 40px 10px 15px; border-radius: 50px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); font-size: 14px; }
+        .search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; }
+        .btn-tele { width: 40px; height: 40px; background: #29b6f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; text-decoration: none; }
+
+        /* --- REKOMENDASI --- */
+        .section-head { 
+            font-size: 17px; font-weight: 700; margin-bottom: 15px; margin-top: 25px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-head i { color: #f59e0b; }
+
+        .recom-wrap {
+            margin-right: -24px; padding-right: 24px;
+            overflow-x: auto; padding-bottom: 20px;
+            scrollbar-width: none;
+        }
+        .recom-wrap::-webkit-scrollbar { display: none; }
+        .recom-scroll { display: flex; gap: 15px; width: max-content; }
+
+        .trend-card {
+            width: 290px; height: 160px; border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border); position: relative; overflow: hidden;
+            padding: 20px; display: flex; flex-direction: column; justify-content: center;
+            box-shadow: var(--shadow); cursor: pointer;
+        }
+        .trend-bg { 
+            position: absolute; right: -25px; bottom: -25px; width: 150px; 
+            opacity: 0.5; filter: blur(5px);
+            transform: rotate(-15deg); transition: 0.4s;
+        }
+        .trend-badge { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: 700; z-index: 2; }
+        .trend-name { font-size: 18px; font-weight: 800; width: 90%; line-height: 1.3; margin-bottom: 5px; z-index: 2; position: relative; }
+        .trend-act { font-size: 12px; color: var(--text-muted); font-weight: 600; z-index: 2; position: relative; }
+
+        /* --- LIST CONTAINER (MOBILE DEFAULT) --- */
+        .list-container { 
+            display: flex; 
+            flex-direction: column; /* Mobile: Kebawah */
+            gap: 12px; 
+            width: 100%;
+        }
+
+        /* --- CARD STYLE --- */
+        .clean-card {
+            background: var(--bg-card); padding: 0 15px; border-radius: 16px;
+            border: 1px solid var(--border); 
+            display: flex; align-items: center; gap: 15px;
+            cursor: pointer; transition: 0.2s; box-shadow: var(--shadow);
+            width: 100%; height: 78px;
+        }
+        .clean-card:active { transform: scale(0.98); background: var(--bg-body); }
+        .clean-card:hover { border-color: var(--primary); }
+        
+        .icon-wrap { position: relative; width: 50px; height: 50px; flex-shrink: 0; }
+        .clean-icon { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .mod-label {
+            position: absolute; bottom: -2px; right: -4px;
+            background: var(--accent); color: white;
+            font-size: 8px; font-weight: 800; padding: 2px 6px;
+            border-radius: 8px; border: 1px solid var(--bg-card);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 5;
+        }
+        
+        .clean-info { flex: 1; min-width: 0; display: flex; align-items: center; height: 100%; }
+        .clean-name { 
+            font-size: 15px; font-weight: 700; color: var(--text-main);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+            display: block; width: 100%;
+        }
+
+        .btn-unduh {
+            background: rgba(37, 99, 235, 0.08); color: var(--primary);
+            padding: 0 18px; height: 34px; 
+            border-radius: 50px; font-size: 11px; font-weight: 800; border: none;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; 
+        }
+        body.dark-mode .btn-unduh { background: rgba(56, 189, 248, 0.15); }
+
+        .btn-loadmore {
+            width: 100%; padding: 14px; margin-top: 15px;
+            background: var(--bg-card); border: 1px dashed var(--border);
+            color: var(--primary); font-weight: 700; font-size: 13px;
+            border-radius: 50px; cursor: pointer; text-align: center;
+            transition: 0.3s;
+        }
+        .btn-loadmore.hidden { display: none; }
+
+        /* --- DESKTOP GRID SYSTEM (WAJIB GRID DI DESKTOP) --- */
+        @media (min-width: 900px) {
+            /* 1. Container Melebar */
+            #mainView {
+                max-width: 1200px; /* Lebar maksimum desktop */
+                padding: 0 40px;
+            }
+
+            /* 2. Ubah List Container jadi GRID */
+            .list-container {
+                display: grid; /* Grid System */
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Kolom Otomatis */
+                gap: 20px; /* Jarak antar kotak */
+            }
+
+            /* 3. Penyesuaian Header */
+            header { padding: 0 5%; }
+            .search-wrap { max-width: 600px; }
+        }
+
+        /* --- UI ELEMENTS --- */
+        .rocket-wrap { 
+            position: fixed; bottom: 90px; right: 24px; 
+            opacity: 0; visibility: hidden; transition: 0.4s; z-index: 2000;
+        }
+        .rocket-wrap.show { opacity: 1; visibility: visible; }
+        .rocket-btn {
+            width: 50px; height: 50px; background: linear-gradient(to top, var(--secondary), var(--primary));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 20px; cursor: pointer; box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+        .rocket-btn i { transform: rotate(-45deg); transition: 0.3s; }
+        .launching { animation: flyUp 0.8s forwards; }
+        @keyframes flyUp { to { transform: translateY(-100vh); opacity: 0; } }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-h);
+            background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border); display: flex; 
+            justify-content: space-evenly; align-items: center; z-index: 1900;
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            color: var(--text-muted); cursor: pointer; width: 60px;
+        }
+        .nav-item i { font-size: 20px; transition: 0.2s; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active i { transform: translateY(-3px); }
+
+        .modal { position: fixed; bottom: -100%; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 2100; display: flex; align-items: flex-end; transition: 0.3s; }
+        .modal.active { bottom: 0; }
+        .modal-box { background: var(--bg-card); width: 100%; padding: 30px 24px; border-radius: 25px 25px 0 0; border-top: 1px solid var(--border); }
+        .toggle { width: 45px; height: 26px; background: #e2e8f0; border-radius: 50px; position: relative; cursor: pointer; }
+        .toggle::after { content:''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .toggle.active { background: var(--primary); }
+        .toggle.active::after { left: 22px; }
+
+        .footer { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 40px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MODORA</div>
+        <div class="search-wrap">
+            <input type="text" id="search" class="search-input" placeholder="Search..." onkeyup="doSearch()">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+        <a href="https://t.me/+xTtKEZ3KXAc5NTY9" class="btn-tele"><i class="fa-brands fa-telegram"></i></a>
+    </header>
+
+    <div id="mainView">
+        
+        <div id="section-recom">
+            <div class="section-head"><i class="fa-solid fa-star"></i> Recommendation</div>
+            <div class="recom-wrap">
+                <div class="recom-scroll" id="recomContainer"></div>
+            </div>
+        </div>
+
+        <div id="section-apps">
+            <div class="section-head"><i class="fa-brands fa-android"></i> Apps</div>
+            <div class="list-container" id="appsContainer"></div>
+            <div class="btn-loadmore" id="btnMoreApps" onclick="loadMoreApps()">
+                Tampilkan Lebih Banyak <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <div id="section-games">
+            <div class="section-head"><i class="fa-solid fa-gamepad"></i> Games</div>
+            <div class="list-container" id="gamesContainer"></div>
+            <div class="btn-loadmore" id="btnMoreGames" onclick="loadMoreGames()">
+                Tampilkan Lebih Banyak <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <div class="footer">© <span id="year"></span> MODORA</div>
+    </div>
+
+    <div class="rocket-wrap" id="rocket">
+        <div class="rocket-btn" onclick="launch()"><i class="fa-solid fa-rocket"></i></div>
+    </div>
+
+    <div class="modal" id="modalSet" onclick="if(event.target === this) toggleSet()">
+        <div class="modal-box">
+            <h3 style="margin-bottom:20px;">Pengaturan</h3>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; font-weight:600;">
+                <span>Mode Gelap</span>
+                <div class="toggle" id="themeToggle" onclick="switchTheme()"></div>
+            </div>
+            <div style="font-weight:600; margin-bottom:10px;">Gaya Font</div>
+            <div style="display:flex; gap:10px;">
+                <button onclick="chFont('Plus Jakarta Sans')" style="flex:1; padding:12px; border-radius:12px; border:1px solid var(--border); background:var(--bg-body); color:var(--text-main); font-weight:600;">Modern</button>
+                <button onclick="chFont('sans-serif')" style="flex:1; padding:12px; border-radius:12px; border:1px solid var(--border); background:var(--bg-body); color:var(--text-main); font-weight:600;">System</button>
+            </div>
+            <button onclick="toggleSet()" style="width:100%; margin-top:25px; padding:14px; background:var(--text-main); color:var(--bg-card); border-radius:14px; font-weight:bold; border:none;">Tutup</button>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="nav('all', this)">
+            <i class="fa-solid fa-house"></i><span>Home</span>
+        </div>
+        <div class="nav-item" onclick="nav('app', this)">
+            <i class="fa-brands fa-android"></i><span>Apps</span>
+        </div>
+        <div class="nav-item" onclick="nav('game', this)">
+            <i class="fa-solid fa-gamepad"></i><span>Games</span>
+        </div>
+        <div class="nav-item" onclick="toggleSet()">
+            <i class="fa-solid fa-gear"></i><span>Setting</span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        const dbApps = [
+            { name: "NAME_APPS", img: "URL_IMAGES_APPS", link: "LINK_UNDUH_APPS", type: "app" },
+            { name: "NAME_APPS", img: "URL_IMAGES_APPS", link: "LINK_UNDUH_APPS", type: "app" }
+        ];
+
+        const dbGames = [
+            { name: "NAME_GAMES", img: "URL_IMAGES_GAMES", link: "LINK_UNDUH_GAMES", type: "game" },
+            { name: "NAME_GAMES", img: "URL_IMAGES_GAMES", link: "LINK_UNDUH_GAMES", type: "game" }
+        ];
+
+        let showAppsCount = 10;
+        let showGamesCount = 10;
+
+        function renderRecom() {
+            const container = document.getElementById('recomContainer');
+            const allReal = [...dbApps, ...dbGames];
+            const shuffled = allReal.sort(() => 0.5 - Math.random()).slice(0, 5);
+            let html = '';
+            shuffled.forEach(item => {
+                html += `
+                <div class="trend-card" onclick="openLink('${item.link}')">
+                    <span class="trend-badge">RECOMMENDED</span>
+                    <div class="trend-name">${item.name}</div>
+                    <div class="trend-act">Install Now <i class="fa-solid fa-arrow-right"></i></div>
+                    <img src="${item.img}" class="trend-bg">
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderAppsList() {
+            const container = document.getElementById('appsContainer');
+            const btn = document.getElementById('btnMoreApps');
+            const dataToShow = dbApps.slice(0, showAppsCount);
+            
+            let html = '';
+            dataToShow.forEach(item => {
+                html += `
+                <div class="clean-card" onclick="openLink('${item.link}')">
+                    <div class="icon-wrap">
+                        <img src="${item.img}" class="clean-icon">
+                        <div class="mod-label">MOD</div>
+                    </div>
+                    <div class="clean-info">
+                        <div class="clean-name">${item.name}</div>
+                    </div>
+                    <button class="btn-unduh">UNDUH</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+
+            if(showAppsCount >= dbApps.length) btn.classList.add('hidden');
+            else btn.classList.remove('hidden');
+        }
+
+        function renderGamesList() {
+            const container = document.getElementById('gamesContainer');
+            const btn = document.getElementById('btnMoreGames');
+            const dataToShow = dbGames.slice(0, showGamesCount);
+            
+            let html = '';
+            dataToShow.forEach(item => {
+                html += `
+                <div class="clean-card" onclick="openLink('${item.link}')">
+                    <div class="icon-wrap">
+                        <img src="${item.img}" class="clean-icon">
+                        <div class="mod-label">MOD</div>
+                    </div>
+                    <div class="clean-info">
+                        <div class="clean-name">${item.name}</div>
+                    </div>
+                    <button class="btn-unduh">UNDUH</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+
+            if(showGamesCount >= dbGames.length) btn.classList.add('hidden');
+            else btn.classList.remove('hidden');
+        }
+
+        function loadMoreApps() { showAppsCount += 10; renderAppsList(); }
+        function loadMoreGames() { showGamesCount += 10; renderGamesList(); }
+
+        function openLink(url) {
+            if(url && url !== '#') window.location.href = url;
+            else alert('Link download sedang diproses sistem!');
+        }
+
+        function doSearch() {
+            const val = document.getElementById('search').value.toLowerCase();
+            if(val === '') {
+                showAppsCount = 10; showGamesCount = 10;
+                renderAppsList(); renderGamesList();
+                return;
+            }
+            
+            const fApps = dbApps.filter(i => i.name.toLowerCase().includes(val));
+            let hApp = '';
+            fApps.forEach(item => {
+                hApp += `<div class="clean-card" onclick="openLink('${item.link}')"><div class="icon-wrap"><img src="${item.img}" class="clean-icon"><div class="mod-label">MOD</div></div><div class="clean-info"><div class="clean-name">${item.name}</div></div><button class="btn-unduh">UNDUH</button></div>`;
+            });
+            document.getElementById('appsContainer').innerHTML = hApp || '<div style="text-align:center; color:#999;">Tidak ditemukan</div>';
+            document.getElementById('btnMoreApps').classList.add('hidden');
+
+            const fGames = dbGames.filter(i => i.name.toLowerCase().includes(val));
+            let hGame = '';
+            fGames.forEach(item => {
+                hGame += `<div class="clean-card" onclick="openLink('${item.link}')"><div class="icon-wrap"><img src="${item.img}" class="clean-icon"><div class="mod-label">MOD</div></div><div class="clean-info"><div class="clean-name">${item.name}</div></div><button class="btn-unduh">UNDUH</button></div>`;
+            });
+            document.getElementById('gamesContainer').innerHTML = hGame || '<div style="text-align:center; color:#999;">Tidak ditemukan</div>';
+            document.getElementById('btnMoreGames').classList.add('hidden');
+        }
+
+        function nav(type, el) {
+            document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+            const secRecom = document.getElementById('section-recom');
+            const secApps = document.getElementById('section-apps');
+            const secGames = document.getElementById('section-games');
+
+            document.getElementById('search').value = '';
+
+            if(type === 'all') {
+                secRecom.style.display = 'block'; secApps.style.display = 'block'; secGames.style.display = 'block';
+            } else if(type === 'app') {
+                secRecom.style.display = 'none'; secApps.style.display = 'block'; secGames.style.display = 'none';
+            } else if(type === 'game') {
+                secRecom.style.display = 'none'; secApps.style.display = 'none'; secGames.style.display = 'block';
+            }
+            window.scrollTo(0,0);
+        }
+
+        function toggleSet() { document.getElementById('modalSet').classList.toggle('active'); }
+        function switchTheme() { document.body.classList.toggle('dark-mode'); document.getElementById('themeToggle').classList.toggle('active'); }
+        function chFont(font) { document.documentElement.style.setProperty('--font-main', font); }
+
+        const rocket = document.getElementById('rocket');
+        const rBtn = document.querySelector('.rocket-btn');
+        window.onscroll = () => { window.scrollY > 200 ? rocket.classList.add('show') : rocket.classList.remove('show'); }
+        function launch() {
+            rBtn.classList.add('launching');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            setTimeout(() => rBtn.classList.remove('launching'), 800);
+        }
+
+        renderRecom();
+        renderAppsList();
+        renderGamesList();
+
+    </script>
+</body>
+</html>

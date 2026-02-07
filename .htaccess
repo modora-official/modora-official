@@ -1,0 +1,72 @@
+# AKTIFKAN MODUL REWRITE, DIPERLUKAN UNTUK URL CANTIK DAN PENGALIHAN
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+</IfModule>
+
+# === PENGALIHAN KE HALAMAN ERROR 404 KUSTOM ===
+# Ini akan menampilkan halaman /404.html jika sebuah halaman tidak ditemukan.
+ErrorDocument 404 /404.html
+
+
+# === PENGALIHAN KE HTTPS DAN WWW (BAIK UNTUK SEO) ===
+# Pilih SALAH SATU dari dua opsi di bawah ini (opsi 1 lebih umum). Hapus tanda # dari baris yang Anda pilih.
+
+# --- OPSI 1: Alihkan semua ke https://www.modora.my.id ---
+# <IfModule mod_rewrite.c>
+#     RewriteCond %{HTTPS} off [OR]
+#     RewriteCond %{HTTP_HOST} !^www\. [NC]
+#     RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+#     RewriteRule ^ https://www.%1%{REQUEST_URI} [L,R=301,NE]
+# </IfModule>
+
+# --- OPSI 2: Alihkan semua ke https://modora.my.id (tanpa www) ---
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} ^www\. [NC]
+    RewriteRule ^ https://modora.my.id%{REQUEST_URI} [L,R=301,NE]
+</IfModule>
+
+
+# === URL CANTIK (MENGHILANGKAN EKSTENSI .html) ===
+# Mengubah URL dari domain.com/about.html menjadi domain.com/about
+<IfModule mod_rewrite.c>
+    # Alihkan URL dengan .html ke versi tanpa .html
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?]
+    RewriteRule ^ https://%{HTTP_HOST}/%1 [R=301,L]
+
+    # Secara internal, arahkan permintaan tanpa .html ke file .html yang sesuai
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}\.html -f
+    RewriteRule ^(.*?)/?$ $1.html [L]
+</IfModule>
+
+
+# === MENINGKATKAN KECEPATAN DENGAN BROWSER CACHING ===
+# Memberi tahu browser untuk menyimpan file statis agar tidak perlu diunduh berulang kali.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/x-javascript "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
+
+
+# === KEAMANAN DASAR ===
+# Mencegah beberapa jenis serangan umum.
+<IfModule mod_headers.c>
+    # Mencegah Clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Mencegah MIME-sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    # Mengontrol informasi referrer
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
